@@ -19,7 +19,7 @@ class FusionEKF {
   /**
    * Destructor.
    */
-  virtual ~FusionEKF();
+  virtual ~FusionEKF() = default;
 
   /**
    * Run the whole flow of the Kalman Filter from here.
@@ -32,6 +32,10 @@ class FusionEKF {
   KalmanFilter ekf_;
 
  private:
+  void Init(const MeasurementPackage &measurement_pack);
+  void Predict(const MeasurementPackage &measurement_pack);
+  void Update(const MeasurementPackage &measurement_pack);
+  
   // check whether the tracking toolbox was initialized or not (first measurement)
   bool is_initialized_;
 
