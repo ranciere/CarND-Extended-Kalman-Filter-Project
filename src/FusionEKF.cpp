@@ -82,30 +82,11 @@ void FusionEKF::Init(const MeasurementPackage &measurement_pack)
 
 void FusionEKF::Predict(const MeasurementPackage &measurement_pack)
 {
-  // Calculate dt and decendants
+  // Calculate dt
   double dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
   previous_timestamp_ = measurement_pack.timestamp_;
-  //
-  double dt_2 = pow(dt, 2);
-  double dt_3 = pow(dt, 3);
-  double dt_4 = pow(dt, 4);
-
-  // Noise for Q matrix
-  double noise_ax = 9.0;
-  double noise_ay = 9.0;
-
-  // Modify F according to elapsed time
-  ekf_.F_(0, 2) = dt;
-  ekf_.F_(1, 3) = dt;
-
-  ekf_.Q_ = MatrixXd(4, 4);
-  ekf_.Q_ << dt_4 / 4 * noise_ax, 0, dt_3 / 2 * noise_ax, 0,
-      0, dt_4 / 4 * noise_ay, 0, dt_3 / 2 * noise_ay,
-      dt_3 / 2 * noise_ax, 0, dt_2 * noise_ax, 0,
-      0, dt_3 / 2 * noise_ay, 0, dt_2 * noise_ay;
-
   // Update the prediction.
-  ekf_.Predict();
+  ekf_.Predict(dt);
 }
 
 void FusionEKF::Update(const MeasurementPackage &measurement_pack)

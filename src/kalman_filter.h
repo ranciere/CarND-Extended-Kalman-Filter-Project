@@ -32,7 +32,7 @@ class KalmanFilter {
    * using the process model
    * @param delta_T Time between k and k+1 in s
    */
-  void Predict();
+  void Predict(double delta_T);
 
   /**
    * Updates the state by using standard Kalman Filter equations
