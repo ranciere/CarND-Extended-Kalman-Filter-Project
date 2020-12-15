@@ -13,7 +13,7 @@ class KalmanFilter {
   /**
    * Destructor
    */
-  virtual ~KalmanFilter();
+  virtual ~KalmanFilter() = default;
 
   /**
    * Init Initializes Kalman filter
